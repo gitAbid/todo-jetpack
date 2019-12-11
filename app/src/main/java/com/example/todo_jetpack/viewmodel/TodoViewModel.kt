@@ -28,9 +28,8 @@ class TodoViewModel : ViewModel() {
         return todos
     }
 
-    fun updateData(index: Int, updates: Todo) {
-        todos.value?.get(index)?.done = updates.done
-        todos.value?.get(index)?.text = updates.text
+    fun updateData(updates: List<Todo>) {
+        todos.value = updates
     }
 
 

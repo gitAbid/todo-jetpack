@@ -33,7 +33,7 @@ class TodoAdapter(var todos: List<Todo>, var listener: ItemClickListener) :
 
         holder.status.setOnCheckedChangeListener { buttonView, isChecked ->
             todo.done = isChecked
-            listener.onClick(position, todo)
+            listener.onClick(todos)
         }
     }
 

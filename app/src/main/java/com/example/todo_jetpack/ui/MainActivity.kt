@@ -16,11 +16,11 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity(), ItemClickListener {
     lateinit var viewModel: TodoViewModel
 
-    override fun onClick(index: Int, todo: Todo) {
-        viewModel.updateData(index, todo)
+    lateinit var todoAdapter: TodoAdapter
+    override fun onClick(list: List<Todo>) {
+        viewModel.updateData(list)
     }
 
-    lateinit var todoAdapter: TodoAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
