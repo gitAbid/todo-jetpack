@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity(), ItemClickListener {
 
     lateinit var todoAdapter: TodoAdapter
     override fun onClick(list: List<Todo>) {
-        viewModel.updateData(list)
+        viewModel.updateData(list.sortedBy { it.done })
     }
 
 
@@ -33,7 +33,9 @@ class MainActivity : AppCompatActivity(), ItemClickListener {
             adapter = todoAdapter
         }
         viewModel.getTodos().observe(this, Observer {
-            todoAdapter.updateDate(it)
+            runOnUiThread {
+                todoAdapter.updateDate(it)
+            }
         })
 
 
