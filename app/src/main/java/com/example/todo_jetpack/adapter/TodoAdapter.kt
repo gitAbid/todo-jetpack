@@ -17,7 +17,7 @@ class TodoAdapter(var todos: List<Todo>, var listener: ItemClickListener) :
     override fun onCreateViewHolder(parent: ViewGroup, position: Int): ViewHolder {
         return ViewHolder(
             LayoutInflater.from(parent.context).inflate(
-              R.layout.item_layout_todo,
+                R.layout.item_layout_todo,
                 parent,
                 false
             )
@@ -39,13 +39,13 @@ class TodoAdapter(var todos: List<Todo>, var listener: ItemClickListener) :
         holder.status.isChecked = todo.done
 
         if (todo.done) holder.text.setPaintFlags(holder.text.getPaintFlags() or STRIKE_THRU_TEXT_FLAG)
-        else  holder.text.setPaintFlags( holder.text.getPaintFlags() and STRIKE_THRU_TEXT_FLAG.inv());
+        else holder.text.setPaintFlags(holder.text.getPaintFlags() and STRIKE_THRU_TEXT_FLAG.inv());
 
 
         holder.status.setOnCheckedChangeListener { buttonView, isChecked ->
-                todo.done = isChecked
-                listener.onClick(todos)
-            }
+            todo.done = isChecked
+            listener.onClick(todo)
+        }
     }
 
 

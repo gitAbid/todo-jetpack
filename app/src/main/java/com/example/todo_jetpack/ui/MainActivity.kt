@@ -17,8 +17,8 @@ class MainActivity : AppCompatActivity(), ItemClickListener {
     lateinit var viewModel: TodoViewModel
 
     lateinit var todoAdapter: TodoAdapter
-    override fun onClick(list: List<Todo>) {
-        viewModel.updateData(list.sortedBy { it.done })
+    override fun onClick(todo: Todo) {
+        viewModel.updateData(todo)
     }
 
 
@@ -37,6 +37,9 @@ class MainActivity : AppCompatActivity(), ItemClickListener {
                 todoAdapter.updateDate(it)
             }
         })
+
+        val todo=Todo(text = "Dummy Todo")
+        viewModel.addTodo(todo)
 
 
     }

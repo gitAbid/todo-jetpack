@@ -1,35 +1,36 @@
 package com.example.todo_jetpack.viewmodel
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.todo_jetpack.models.Todo
+import com.example.todo_jetpack.repo.Repository
+import com.example.todo_jetpack.repo.TodoDB
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class TodoViewModel : ViewModel() {
-    private var todos: MutableLiveData<List<Todo>>
-
+    val db: TodoDB
     init {
-        todos = loadTodos()
-    }
-
-    private fun loadTodos(): MutableLiveData<List<Todo>> {
-
-        return MutableLiveData(
-            listOf(
-                Todo("Loremm Ipsum 1"),
-                Todo("Loremm Ipsum 2"),
-                Todo("Loremm Ipsum 3"),
-                Todo("Loremm Ipsum 4")
-            )
-        )
+        db=Repository.db!!
     }
 
     fun getTodos(): LiveData<List<Todo>> {
-        return todos
+        return db.todoDao().todos()
     }
 
-    fun updateData(updates: List<Todo>) {
-        todos.value = updates
+    fun updateData(todo: Todo) {
+        GlobalScope.launch(Dispatchers.IO) {
+            db.todoDao().update(todo)
+        }
+
+    }
+
+    fun addTodo(todo: Todo) {
+        GlobalScope.launch(Dispatchers.IO) {
+            db.todoDao().insert(todo)
+        }
     }
 
 
