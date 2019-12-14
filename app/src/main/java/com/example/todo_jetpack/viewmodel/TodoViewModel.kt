@@ -8,7 +8,6 @@ import com.example.todo_jetpack.repo.TodoDB
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class TodoViewModel : ViewModel() {
     val db: TodoDB
@@ -17,7 +16,7 @@ class TodoViewModel : ViewModel() {
     }
 
     fun getTodos(): LiveData<List<Todo>> {
-        return db.todoDao().todos()
+        return db.todoDao().getAll()
     }
 
     fun updateData(todo: Todo) {
@@ -30,6 +29,12 @@ class TodoViewModel : ViewModel() {
     fun addTodo(todo: Todo) {
         GlobalScope.launch(Dispatchers.IO) {
             db.todoDao().insert(todo)
+        }
+    }
+
+    fun deleteTodo(todo: Todo) {
+        GlobalScope.launch(Dispatchers.IO) {
+            db.todoDao().delete(todo)
         }
     }
 

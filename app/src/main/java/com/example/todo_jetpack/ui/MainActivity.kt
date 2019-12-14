@@ -1,6 +1,8 @@
 package com.example.todo_jetpack.ui
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -21,6 +23,10 @@ class MainActivity : AppCompatActivity(), ItemClickListener {
         viewModel.updateData(todo)
     }
 
+    override fun onDelete(todo: Todo) {
+        viewModel.deleteTodo(todo)
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,8 +44,25 @@ class MainActivity : AppCompatActivity(), ItemClickListener {
             }
         })
 
-        val todo=Todo(text = "Dummy Todo")
-        viewModel.addTodo(todo)
+        etTodo.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(text: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                btnSave.isEnabled = text?.length != 0
+            }
+
+        })
+        btnSave.isEnabled = false
+
+        btnSave.setOnClickListener {
+            val todo = Todo(text = etTodo.text.toString())
+            viewModel.addTodo(todo)
+            etTodo.text.clear()
+        }
 
 
     }

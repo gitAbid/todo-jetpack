@@ -46,12 +46,14 @@ class TodoAdapter(var todos: List<Todo>, var listener: ItemClickListener) :
             todo.done = isChecked
             listener.onClick(todo)
         }
+        holder.clear.setOnClickListener { listener.onDelete(todo) }
     }
 
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val text = view.tvText;
         val status = view.cbDoneStatus;
+        val clear = view.ivClear;
     }
 
     fun updateDate(updates: List<Todo>) {

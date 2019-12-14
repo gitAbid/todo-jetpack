@@ -5,22 +5,38 @@
     android:layout_margin="5dp"
     android:background="@drawable/border_background"
     android:orientation="horizontal">
+   <LinearLayout
+       android:clickable="true"
+       android:focusable="true
+"
+       android:background="@drawable/ripple"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/tvText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginEnd="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_weight="70"
-        android:padding="10dp" />
+       <CheckBox
+           android:id="@+id/cbDoneStatus"
+           android:layout_width="0dp"
+           android:layout_height="wrap_content"
+           android:layout_gravity="center"
+           android:layout_marginLeft="8dp"
+           android:button="@drawable/custom_checkbox_icon"
+           android:layout_weight="8"
+           android:gravity="center" />
+       <TextView
+           android:id="@+id/tvText"
+           android:layout_width="0dp"
+           android:layout_height="wrap_content"
+           android:layout_gravity="center"
+           android:layout_weight="82"
+           android:padding="10dp" />
 
-    <CheckBox
-        android:id="@+id/cbDoneStatus"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_weight="10"
-        android:gravity="center" />
+       <ImageView
+           android:id="@+id/ivClear"
+           android:paddingRight="5dp"
+           android:layout_gravity="center"
+           android:layout_width="wrap_content"
+           android:src="@drawable/ic_close_24dp"
+           android:layout_height="wrap_content" />
+   </LinearLayout>
+
 </LinearLayout>
