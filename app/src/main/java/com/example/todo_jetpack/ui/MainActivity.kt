@@ -1,11 +1,13 @@
 package com.example.todo_jetpack.ui
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todo_jetpack.R
 import com.example.todo_jetpack.adapter.TodoAdapter
@@ -35,7 +37,12 @@ class MainActivity : AppCompatActivity(), ItemClickListener {
         todoAdapter = TodoAdapter(listOf(), this)
         rcvTodoList.apply {
             setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(this@MainActivity)
+            val orientation = resources.configuration.orientation
+            if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                layoutManager = GridLayoutManager(this@MainActivity, 2)
+            } else {
+                layoutManager = LinearLayoutManager(this@MainActivity)
+            }
             adapter = todoAdapter
         }
         viewModel.getTodos()?.observe(this, Observer {
