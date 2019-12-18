@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity(), ItemClickListener {
             layoutManager = LinearLayoutManager(this@MainActivity)
             adapter = todoAdapter
         }
-        viewModel.getTodos().observe(this, Observer {
+        viewModel.getTodos()?.observe(this, Observer {
             runOnUiThread {
                 todoAdapter.updateDate(it)
             }

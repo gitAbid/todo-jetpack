@@ -10,31 +10,31 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class TodoViewModel : ViewModel() {
-    val db: TodoDB
+    val db: TodoDB?
     init {
-        db=Repository.db!!
+        db=Repository.db
     }
 
-    fun getTodos(): LiveData<List<Todo>> {
-        return db.todoDao().getAll()
+    fun getTodos(): LiveData<List<Todo>>? {
+        return db?.todoDao()?.getAll()
     }
 
     fun updateData(todo: Todo) {
         GlobalScope.launch(Dispatchers.IO) {
-            db.todoDao().update(todo)
+            db?.todoDao()?.update(todo)
         }
 
     }
 
     fun addTodo(todo: Todo) {
         GlobalScope.launch(Dispatchers.IO) {
-            db.todoDao().insert(todo)
+            db?.todoDao()?.insert(todo)
         }
     }
 
     fun deleteTodo(todo: Todo) {
         GlobalScope.launch(Dispatchers.IO) {
-            db.todoDao().delete(todo)
+            db?.todoDao()?.delete(todo)
         }
     }
 
